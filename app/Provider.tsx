@@ -8,7 +8,12 @@ import { ReactNode } from "react";
 
 const Provider = ({ children }: { children: ReactNode }) => {
   return (
-    <LiveblocksProvider authEndpoint="/api/liveblocks-auth">
+    <LiveblocksProvider
+      authEndpoint="/api/liveblocks-auth"
+      resolveUsers={async (userIds) => {
+        const users = await getClerkUser();
+      }}
+    >
       {/* publicApiKey={"pk_dev_xRsNg…cEx5KP"} */}
       {/* <RoomProvider id="my-room"> */}
       <ClientSideSuspense fallback={<Loader />}>{children}</ClientSideSuspense>
